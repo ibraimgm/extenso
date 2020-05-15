@@ -48,14 +48,14 @@ func TestExtenso(t *testing.T) {
 		{url: "/71101", expected: `{"extenso":"setenta e um mil e cento e um"}`},
 		{url: "/71111", expected: `{"extenso":"setenta e um mil e cento e onze"}`},
 		// weird/wrong input
-		{url: "/abcd", expected: `{"erro":"O path deve ser um numero inteiro entre -99999 e 99999."}`},
-		{url: "/-999999", expected: `{"erro":"O path deve ser um numero inteiro entre -99999 e 99999."}`},
-		{url: "/999999", expected: `{"erro":"O path deve ser um numero inteiro entre -99999 e 99999."}`},
-		{url: "/99.999", expected: `{"erro":"O path deve ser um numero inteiro entre -99999 e 99999."}`},
-		{url: "/99,999", expected: `{"erro":"O path deve ser um numero inteiro entre -99999 e 99999."}`},
+		{url: "/abcd", expected: `{"erro":"O path deve ser um numero inteiro entre -99999 e 99999."}`, expectedStatus: http.StatusBadRequest},
+		{url: "/-999999", expected: `{"erro":"O path deve ser um numero inteiro entre -99999 e 99999."}`, expectedStatus: http.StatusBadRequest},
+		{url: "/999999", expected: `{"erro":"O path deve ser um numero inteiro entre -99999 e 99999."}`, expectedStatus: http.StatusBadRequest},
+		{url: "/99.999", expected: `{"erro":"O path deve ser um numero inteiro entre -99999 e 99999."}`, expectedStatus: http.StatusBadRequest},
+		{url: "/99,999", expected: `{"erro":"O path deve ser um numero inteiro entre -99999 e 99999."}`, expectedStatus: http.StatusBadRequest},
 		{url: "/0000099999", expected: `{"extenso":"noventa e nove mil e novecentos e noventa e nove"}`},
 		{url: "/-0000099999", expected: `{"extenso":"menos noventa e nove mil e novecentos e noventa e nove"}`},
-		{url: "/00000-99999", expected: `{"erro":"O path deve ser um numero inteiro entre -99999 e 99999."}`},
+		{url: "/00000-99999", expected: `{"erro":"O path deve ser um numero inteiro entre -99999 e 99999."}`, expectedStatus: http.StatusBadRequest},
 	}
 
 	mux := server.CreateServerMux()

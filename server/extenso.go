@@ -37,14 +37,14 @@ func extensoHandle(w http.ResponseWriter, r *http.Request) {
 	i64, err := strconv.ParseInt(path, 10, 0)
 	if err != nil {
 		log.Println(err.Error()) // log the original error, for debugging purposes
-		fmt.Fprint(w, marshalJson(errPathInvalido))
+		http.Error(w, marshalJson(errPathInvalido), http.StatusBadRequest)
 		return
 	}
 
 	res, err := extenso(int(i64))
 	if err != nil {
 		log.Println(err.Error()) // log the original error, for debugging purposes
-		fmt.Fprint(w, marshalJson(err))
+		http.Error(w, marshalJson(errPathInvalido), http.StatusBadRequest)
 		return
 	}
 
